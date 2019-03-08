@@ -12,6 +12,6 @@ namespace LibraryOrderCore.Data
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
 
-        Task<Order[]> GetAllCampsAsync(bool includeItems = false);
+        Task<Order[]> GetAllOrdersAsync(bool includeItems = false);
     }
 }

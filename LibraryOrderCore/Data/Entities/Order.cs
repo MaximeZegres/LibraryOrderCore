@@ -11,7 +11,7 @@ namespace LibraryOrderCore.Data.Entities
         public string OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
         public bool IsContacted { get; set; }
-        public ICollection<OrderItem> Items { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
         public Customer Customer { get; set; }
     }
 }

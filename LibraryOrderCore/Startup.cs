@@ -33,6 +33,7 @@ namespace LibraryOrderCore
                 cfg.UseSqlServer(Configuration.GetConnectionString("LibraryOrderConnectionString"));
             });
 
+            services.AddScoped<ILibraryOrderRepository, LibraryOrderRepository>();
             services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

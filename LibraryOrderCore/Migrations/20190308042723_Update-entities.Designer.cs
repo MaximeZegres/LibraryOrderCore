@@ -4,14 +4,16 @@ using LibraryOrderCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryOrderCore.Migrations
 {
     [DbContext(typeof(LibraryOrderDbContext))]
-    partial class LibraryOrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190308042723_Update-entities")]
+    partial class Updateentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace LibraryOrderCore.Migrations
 
             modelBuilder.Entity("LibraryOrderCore.Data.Entities.Book", b =>
                 {
-                    b.Property<int>("BookId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,7 +35,7 @@ namespace LibraryOrderCore.Migrations
 
                     b.Property<string>("Title");
 
-                    b.HasKey("BookId");
+                    b.HasKey("Id");
 
                     b.ToTable("Books");
                 });
