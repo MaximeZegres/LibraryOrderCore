@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LibraryOrderCore.Data;
+using LibraryOrderCore.Data.Entities;
 using LibraryOrderCore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,27 @@ namespace LibraryOrderCore.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<OrderModel>> Post(OrderModel model)
+        {
+            try
+            {
+                var order = _mapper.Map<Order>(model);
+                _repository.Add(order);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Created($"/api/orders/{order.Id}", _mapper.Map<OrderModel>(order));
+                }
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
         }
 
 
