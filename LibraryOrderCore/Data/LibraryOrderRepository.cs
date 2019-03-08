@@ -52,5 +52,20 @@ namespace LibraryOrderCore.Data
             return await query.ToArrayAsync();
 
         }
+
+
+        //Get Order
+        public async Task<Order> GetOrderAsync(int id)
+        {
+            IQueryable<Order> query = _context.Orders
+                                                .Include(o => o.Customer)
+                                                .Include(o => o.OrderItems)
+                                                .ThenInclude(o => o.Book);
+
+            // Query it
+            query = query.Where(o => o.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

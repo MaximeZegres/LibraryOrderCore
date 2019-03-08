@@ -38,5 +38,27 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderModel>> Get(int id)
+        {
+            try
+            {
+                var result = await _repository.GetOrderAsync(id);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return _mapper.Map<OrderModel>(result);
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+
     }
 }
