@@ -15,5 +15,8 @@ namespace LibraryOrderCore.Data
         // Orders
         Task<Order[]> GetAllOrdersAsync(bool includeItems = false);
         Task<Order> GetOrderAsync(int id);
+
+        // OrderItems
+        Task<OrderItem[]> GetOrderItemsAsync(int id);
     }
 }
