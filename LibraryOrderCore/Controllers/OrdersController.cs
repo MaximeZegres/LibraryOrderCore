@@ -123,9 +123,30 @@ namespace LibraryOrderCore.Controllers
         }
 
 
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var oldOrder = await _repository.GetOrderAsync(id);
+                if (oldOrder == null)
+                {
+                    return NotFound();
+                }
 
+                _repository.Delete(oldOrder);
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
 
-
+            return BadRequest("Failed to delete order");
+        }
 
     }
 }
