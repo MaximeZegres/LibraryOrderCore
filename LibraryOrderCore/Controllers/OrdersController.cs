@@ -8,6 +8,7 @@ using LibraryOrderCore.Data.Entities;
 using LibraryOrderCore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace LibraryOrderCore.Controllers
 {
@@ -17,6 +18,7 @@ namespace LibraryOrderCore.Controllers
     {
         private readonly ILibraryOrderRepository _repository;
         private readonly IMapper _mapper;
+        private readonly LinkGenerator _linkGenerator;
 
         public OrdersController(ILibraryOrderRepository repository, IMapper mapper)
         {
@@ -24,6 +26,8 @@ namespace LibraryOrderCore.Controllers
             _mapper = mapper;
         }
 
+
+        // Get all orders
         [HttpGet]
         public async Task<ActionResult<OrderModel[]>> Get(bool includeItems = false)
         {
@@ -39,6 +43,7 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
+        // Get by id
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderModel>> Get(int id)
         {
@@ -60,11 +65,18 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
-        [HttpPost]
+       // Post
         public async Task<ActionResult<OrderModel>> Post(OrderModel model)
         {
             try
             {
+                var existingOrder = await _repository.GetOrderAsync(model.Id);
+                if (existingOrder != null)
+                {
+                    return BadRequest("Order in Use");
+                }
+
+                // create new order
                 var order = _mapper.Map<Order>(model);
                 _repository.Add(order);
 
@@ -80,6 +92,9 @@ namespace LibraryOrderCore.Controllers
 
             return BadRequest();
         }
+
+
+
 
 
     }
