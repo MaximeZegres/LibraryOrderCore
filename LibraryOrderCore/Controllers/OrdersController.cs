@@ -18,7 +18,6 @@ namespace LibraryOrderCore.Controllers
     {
         private readonly ILibraryOrderRepository _repository;
         private readonly IMapper _mapper;
-        private readonly LinkGenerator _linkGenerator;
 
         public OrdersController(ILibraryOrderRepository repository, IMapper mapper)
         {
