@@ -93,6 +93,36 @@ namespace LibraryOrderCore.Controllers
             return BadRequest();
         }
 
+        // Put
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<OrderModel>> Patch(int id, OrderModel model)
+        {
+            try
+            {
+                var oldOrder = await _repository.GetOrderAsync(model.Id);
+                if (oldOrder == null)
+                {
+                    return NotFound("Could not find order with id of {id}");
+                }
+
+                _mapper.Map(model, oldOrder);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return _mapper.Map<OrderModel>(oldOrder);
+                }
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+
+        }
+
+
 
 
 
