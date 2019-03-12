@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LibraryOrderCore.Data;
 using LibraryOrderCore.Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryOrderCore.Controllers
@@ -24,9 +25,17 @@ namespace LibraryOrderCore.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<OrderItem[]>> Get()
+        public async Task<ActionResult<OrderItem[]>> Get(int id)
         {
-
+            try
+            {
+                var orderItems = await _repository.GetOrderItemsAsync(id);
+                return _mapper.Map<OrderItem[]>(orderItems);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to get Talks");
+            }
         }
     }
 }
