@@ -18,5 +18,11 @@ namespace LibraryOrderCore.Data
 
         // OrderItems
         Task<OrderItem[]> GetOrderItemsAsync(int id);
+        Task<OrderItem> GetOrderItemByIdAsync(int id, int orderItemId);
+
+        // Books
+        Task<Book[]> GetBooksByIdAsync(int id);
+        Task<Book[]> GetAllBooksAsync();
+        Task<Book> GetBookAsync(int bookId);
     }
 }

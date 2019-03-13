@@ -69,6 +69,7 @@ namespace LibraryOrderCore.Data
         }
 
 
+
         // Get OrderItems by ID
         public async Task<OrderItem[]> GetOrderItemsAsync(int id)
         {
@@ -83,6 +84,54 @@ namespace LibraryOrderCore.Data
 
             return await query.ToArrayAsync();
         }
+
+        // Get OrderItem by ID
+        public async Task<OrderItem> GetOrderItemByIdAsync(int id, int orderItemId)
+        {
+            IQueryable<OrderItem> query = _context.Items
+                                                    .Include(i => i.Book);
+
+
+            // Add condition query
+            query = query
+                        .Where(i => i.OrderItemId == orderItemId && i.Order.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        public async Task<Book[]> GetBooksByIdAsync(int id)
+        {
+
+            IQueryable<Book> query = _context.Items
+              .Where(i => i.Order.Id == id)
+              .Select(i => i.Book)
+              .Where(b => b != null)
+              .OrderBy(b => b.Title)
+              .Distinct();
+
+            return await query.ToArrayAsync();
+        }
+
+
+        public async Task<Book[]> GetAllBooksAsync()
+        {
+            var query = _context.Books
+              .OrderBy(i => i.Title);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Book> GetBookAsync(int bookId)
+        {
+
+            var query = _context.Books
+              .Where(b => b.BookId == bookId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+
 
 
 
