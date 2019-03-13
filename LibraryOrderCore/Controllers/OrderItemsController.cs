@@ -97,5 +97,35 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<OrderItemModel>> Patch(int id, int orderItemId, OrderItemModel model)
+        {
+            try
+            {
+                var orderItem = await _repository.GetOrderItemByIdAsync(id, orderItemId);
+                if (orderItem == null)
+                {
+                    return NotFound("Could not find the orderItem");
+                }
+
+                _mapper.Map(model, orderItem);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return _mapper.Map<OrderItemModel>(orderItem);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to get OrderItem");
+            }
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id, int orderItemId)
+        {
+
+        }
     }
 }
