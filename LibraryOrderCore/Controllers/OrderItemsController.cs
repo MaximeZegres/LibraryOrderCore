@@ -122,10 +122,32 @@ namespace LibraryOrderCore.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id, int orderItemId)
         {
+            try
+            {
+                var orderItem = await _repository.GetOrderItemByIdAsync(id, orderItemId);
+                if (orderItem == null)
+                {
+                    return NotFound("Failed to find the orderItem to delete");
+                }
 
+                _repository.Delete(orderItem);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Failed to delete orderItem");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to get OrderItem");
+            }
         }
     }
 }
