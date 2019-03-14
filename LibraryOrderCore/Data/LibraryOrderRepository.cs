@@ -34,15 +34,21 @@ namespace LibraryOrderCore.Data
 
 
         // Get All Orders
-        public async Task<Order[]> GetAllOrdersAsync()
+        public async Task<Order[]> GetAllOrdersAsync(bool includeItems = false)
         {
             IQueryable<Order> query = _context.Orders
-                                        .Include(c => c.Customer)
-                                        .Include(o => o.OrderItems);
+                                        .Include(c => c.Customer);
 
-
+            if (includeItems)
+            {
+                query = query
+                            .Include(o => o.OrderItems)
+                            .ThenInclude(i => i.Book);
+            }
+                                        
+   
             // Order It
-            query = query.OrderByDescending(o => o.OrderDate);
+            query = query.OrderByDescending(o => o.OrderId);
 
             return await query.ToArrayAsync();
 
@@ -50,56 +56,74 @@ namespace LibraryOrderCore.Data
 
 
         //Get Order
-        public async Task<Order> GetOrderAsync(int id)
+        public async Task<Order> GetOrderAsync(string orderNumber, bool includeItems = false)
         {
             IQueryable<Order> query = _context.Orders
-                                                .Include(o => o.Customer)
-                                                .Include(o => o.OrderItems)
-                                                .ThenInclude(o => o.Book);
+                                                .Include(o => o.Customer);
+                                                
+            if (includeItems)
+            {
+                query = query
+                    .Include(o => o.OrderItems)
+                    .ThenInclude(o => o.Book);
+            }
 
             // Query it
-            query = query.Where(o => o.Id == id);
+            query = query.Where(o => o.OrderNumber == orderNumber);
 
             return await query.FirstOrDefaultAsync();
         }
 
 
 
+
+
+
         // Get OrderItems by ID
-        public async Task<OrderItem[]> GetOrderItemsAsync(int id)
+        public async Task<OrderItem[]> GetOrderItemsByOrderNumberAsync(string orderNumber, bool includeItems = false)
         {
-            IQueryable<OrderItem> query = _context.Items
-                                                    .Include(i => i.Book);
+            IQueryable<OrderItem> query = _context.Items;
+
+            if (includeItems)
+            {
+                query = query
+                            .Include(i => i.Book);
+            }
 
 
             // Add condition query
             query = query
-                        .Where(i => i.Order.Id == id)
+                        .Where(i => i.Order.OrderNumber == orderNumber)
                         .OrderByDescending(i => i.OrderItemId);
 
             return await query.ToArrayAsync();
         }
 
         // Get OrderItem by ID
-        public async Task<OrderItem> GetOrderItemByIdAsync(int id, int orderItemId)
+        public async Task<OrderItem> GetOrderItemByOrderNumberAsync(string orderNumber, int orderItemId, bool includeItems = false)
         {
-            IQueryable<OrderItem> query = _context.Items
-                                                    .Include(i => i.Book);
+            IQueryable<OrderItem> query = _context.Items;
+
+            if(includeItems)
+            {
+                query = query
+                            .Include(i => i.Book);
+            }
 
 
             // Add condition query
             query = query
-                        .Where(i => i.OrderItemId == orderItemId && i.Order.Id == id);
+                        .Where(i => i.OrderItemId == orderItemId && i.Order.OrderNumber == orderNumber);
 
             return await query.FirstOrDefaultAsync();
         }
 
 
-        public async Task<Book[]> GetBooksByIdAsync(int id)
+        public async Task<Book[]> GetBooksByOrderNumberAsync(string orderNumber)
         {
 
             IQueryable<Book> query = _context.Items
-              .Where(i => i.Order.Id == id)
+              .Where(i => i.Order.OrderNumber == orderNumber)
               .Select(i => i.Book)
               .Where(b => b != null)
               .OrderBy(b => b.Title)

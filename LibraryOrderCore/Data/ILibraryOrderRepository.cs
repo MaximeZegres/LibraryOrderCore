@@ -13,15 +13,15 @@ namespace LibraryOrderCore.Data
         Task<bool> SaveChangesAsync();
 
         // Orders
-        Task<Order[]> GetAllOrdersAsync();
-        Task<Order> GetOrderAsync(int id);
+        Task<Order[]> GetAllOrdersAsync(bool includeItems = false);
+        Task<Order> GetOrderAsync(string orderNumber, bool includeItems = false);
 
         // OrderItems
-        Task<OrderItem[]> GetOrderItemsAsync(int id);
-        Task<OrderItem> GetOrderItemByIdAsync(int id, int orderItemId);
+        Task<OrderItem[]> GetOrderItemsByOrderNumberAsync(string orderNumber, bool includeItems = false);
+        Task<OrderItem> GetOrderItemByOrderNumberAsync(string orderNumber, int orderItemId, bool includeItems = false);
 
         // Books
-        Task<Book[]> GetBooksByIdAsync(int id);
+        Task<Book[]> GetBooksByOrderNumberAsync(string orderNumber);
         Task<Book[]> GetAllBooksAsync();
         Task<Book> GetBookAsync(int bookId);
     }

@@ -30,11 +30,11 @@ namespace LibraryOrderCore.Controllers
 
         // Get all orders
         [HttpGet]
-        public async Task<ActionResult<OrderModel[]>> Get()
+        public async Task<ActionResult<OrderModel[]>> Get(bool includeItems = false)
         {
             try
             {
-                var results = await _repository.GetAllOrdersAsync();
+                var results = await _repository.GetAllOrdersAsync(includeItems);
 
                 return _mapper.Map<OrderModel[]>(results);
             }
@@ -45,12 +45,12 @@ namespace LibraryOrderCore.Controllers
         }
 
         // Get by id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OrderModel>> Get(int id)
+        [HttpGet("{orderNumber}")]
+        public async Task<ActionResult<OrderModel>> Get(string orderNumber)
         {
             try
             {
-                var result = await _repository.GetOrderAsync(id);
+                var result = await _repository.GetOrderAsync(orderNumber);
 
                 if (result == null)
                 {
@@ -71,17 +71,17 @@ namespace LibraryOrderCore.Controllers
         {
             try
             {
-                var existingOrder = await _repository.GetOrderAsync(model.Id);
+                var existingOrder = await _repository.GetOrderAsync(model.OrderNumber);
                 if (existingOrder != null)
                 {
                     return BadRequest("Order in Use");
                 }
 
-                var location = _linkGenerator.GetPathByAction("Get", "Orders", new { id = model.Id });
+                var location = _linkGenerator.GetPathByAction("Get", "Orders", new { orderNumber = model.OrderNumber });
 
                 if (string.IsNullOrWhiteSpace(location))
                 {
-                    return BadRequest("Could not use current id");
+                    return BadRequest("Could not use current orderNumber");
                 }
 
                 // create new order
@@ -90,7 +90,7 @@ namespace LibraryOrderCore.Controllers
 
                 if (await _repository.SaveChangesAsync())
                 {
-                    return Created($"/api/orders/{order.Id}", _mapper.Map<OrderModel>(order));
+                    return Created($"/api/orders/{order.OrderNumber}", _mapper.Map<OrderModel>(order));
                 }
             }
             catch (Exception)
@@ -102,15 +102,15 @@ namespace LibraryOrderCore.Controllers
         }
 
         // Put
-        [HttpPatch("{id}")]
-        public async Task<ActionResult<OrderModel>> Patch(int id, OrderModel model)
+        [HttpPut("{orderNumber}")]
+        public async Task<ActionResult<OrderModel>> Put(string orderNumber, OrderModel model)
         {
             try
             {
-                var oldOrder = await _repository.GetOrderAsync(model.Id);
+                var oldOrder = await _repository.GetOrderAsync(orderNumber);
                 if (oldOrder == null)
                 {
-                    return NotFound("Could not find order with id of {id}");
+                    return NotFound("Could not find order with orderNumber of {orderNumber}");
                 }
 
                 _mapper.Map(model, oldOrder);
@@ -131,12 +131,12 @@ namespace LibraryOrderCore.Controllers
         }
 
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{orderNumber}")]
+        public async Task<IActionResult> Delete(string orderNumber)
         {
             try
             {
-                var oldOrder = await _repository.GetOrderAsync(id);
+                var oldOrder = await _repository.GetOrderAsync(orderNumber);
                 if (oldOrder == null)
                 {
                     return NotFound();

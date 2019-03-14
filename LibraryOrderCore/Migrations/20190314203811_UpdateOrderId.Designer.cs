@@ -4,14 +4,16 @@ using LibraryOrderCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryOrderCore.Migrations
 {
     [DbContext(typeof(LibraryOrderDbContext))]
-    partial class LibraryOrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190314203811_UpdateOrderId")]
+    partial class UpdateOrderId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
