@@ -13,7 +13,7 @@ namespace LibraryOrderCore.Data
         Task<bool> SaveChangesAsync();
 
         // Orders
-        Task<Order[]> GetAllOrdersAsync(bool includeItems = false);
+        Task<Order[]> GetAllOrdersAsync();
         Task<Order> GetOrderAsync(int id);
 
         // OrderItems

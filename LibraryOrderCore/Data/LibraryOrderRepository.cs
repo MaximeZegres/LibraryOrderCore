@@ -34,17 +34,12 @@ namespace LibraryOrderCore.Data
 
 
         // Get All Orders
-        public async Task<Order[]> GetAllOrdersAsync(bool includeItems = false)
+        public async Task<Order[]> GetAllOrdersAsync()
         {
             IQueryable<Order> query = _context.Orders
-                                        .Include(c => c.Customer);
+                                        .Include(c => c.Customer)
+                                        .Include(o => o.OrderItems);
 
-            if (includeItems)
-            {
-                query = query
-                  .Include(o => o.OrderItems)
-                   .ThenInclude(o => o.Book);
-            }
 
             // Order It
             query = query.OrderByDescending(o => o.OrderDate);

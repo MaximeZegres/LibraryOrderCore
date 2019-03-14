@@ -8,20 +8,23 @@ using LibraryOrderCore.Data.Entities;
 using LibraryOrderCore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace LibraryOrderCore.Controllers
 {
     [ApiController]
-    [Route("api/orders/{id}/orderItems")]
+    [Route("api/orders/{OrderItemId}/orderItems")]
     public class OrderItemsController : ControllerBase
     {
         private readonly ILibraryOrderRepository _repository;
         private readonly IMapper _mapper;
+        private readonly LinkGenerator _linkGenerator;
 
-        public OrderItemsController(ILibraryOrderRepository repository, IMapper mapper)
+        public OrderItemsController(ILibraryOrderRepository repository, IMapper mapper, LinkGenerator linkGenerator)
         {
             _repository = repository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
 
@@ -83,7 +86,9 @@ namespace LibraryOrderCore.Controllers
 
                 if(await _repository.SaveChangesAsync())
                 {
-                    return Created($"/api/orders/{order.Id}/{orderItem.OrderItemId}", _mapper.Map<OrderItemModel>(orderItem));
+                    var url = _linkGenerator.GetPathByAction(HttpContext, "Get", values: new { orderItem, id = order.Id });
+
+                    return Created(url, _mapper.Map<OrderItemModel>(orderItem));
                 }
                 else
                 {
@@ -119,6 +124,8 @@ namespace LibraryOrderCore.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Failed to get OrderItem");
             }
+
+            return BadRequest("Could not find the orderItem");
         }
 
 

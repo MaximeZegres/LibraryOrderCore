@@ -18,21 +18,23 @@ namespace LibraryOrderCore.Controllers
     {
         private readonly ILibraryOrderRepository _repository;
         private readonly IMapper _mapper;
+        private readonly LinkGenerator _linkGenerator;
 
-        public OrdersController(ILibraryOrderRepository repository, IMapper mapper)
+        public OrdersController(ILibraryOrderRepository repository, IMapper mapper, LinkGenerator linkGenerator)
         {
             _repository = repository;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
         }
 
 
         // Get all orders
         [HttpGet]
-        public async Task<ActionResult<OrderModel[]>> Get(bool includeItems = false)
+        public async Task<ActionResult<OrderModel[]>> Get()
         {
             try
             {
-                var results = await _repository.GetAllOrdersAsync(includeItems);
+                var results = await _repository.GetAllOrdersAsync();
 
                 return _mapper.Map<OrderModel[]>(results);
             }
@@ -73,6 +75,13 @@ namespace LibraryOrderCore.Controllers
                 if (existingOrder != null)
                 {
                     return BadRequest("Order in Use");
+                }
+
+                var location = _linkGenerator.GetPathByAction("Get", "Orders", new { id = model.Id });
+
+                if (string.IsNullOrWhiteSpace(location))
+                {
+                    return BadRequest("Could not use current id");
                 }
 
                 // create new order
