@@ -1,0 +1,37 @@
+<div>
+  <h1>Commandes en cours</h1>
+  <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover btn-table">
+            <thead>
+              <tr>
+                <th scope="col">Numéro de commande</th>
+                <th scope="col">Date de commande</th>
+                <th scope="col">Nom & Prénom</th>
+                <th scope="col">Est contacté?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{order.id}}</th>
+                <td>{{order.orderDate}}</td>
+                <td>{{order.customer.firstName}} {{order.customer.lastName}}</td>
+                <td>
+                  <div>
+                      <input type="checkbox" class="form-check-input" id="tableMaterialCheck">
+                      <label class="form-check-label" for="tableMaterialCheck">{{order.isContacted}}</label>
+                  </div>     
+                </td>
+                <td><button type="button" (click)="loadOrderGridItemComponent();" class="btn btn-teal btn-rounded btn-sm m-0">Détails</button></td>         
+              </tr>
+              <tr *ngIf="loadComponent">
+                <td colspan="4">
+                    <order-grid-item [order]="order"></order-grid-item>  
+                </td>
+              </tr>
+                                
+            </tbody>
+          </table>
+          <hr>
+    </div>
+</div>
