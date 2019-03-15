@@ -8,32 +8,29 @@ import { Component, OnInit } from '@angular/core';
 export class OrderGridComponent implements OnInit {
   
   order = {
-    "id": 1,
-    "orderNumber": "125125",
-    "orderDate": "2019-01-21T22:11:36",
-    "isContacted": false,
-    "items": [
+    "orderId": 3,
+    "orderNumber": "125127",
+    "orderDate": "2019-01-23T20:15:10",
+    "isContacted": true,
+    "customerFirstName": "Coralie",
+    "customerLastName": "Prov",
+    "customerEmail": "coralie@test.be",
+    "customerPhoneNumber": "020103020",
+    "orderItems": [
         {
-            "id": 6,
+            "orderItemId": 4,
             "book": {
-                "id": 4,
-                "title": "Demain",
-                "author": "Guillaume Musso",
-                "editor": "Pocket",
-                "isbn": "9782266246880"
+                "bookId": 2,
+                "title": "Learning JavaScript Design Patterns",
+                "author": "Addy Osmani",
+                "editor": "OReilly Media",
+                "isbn": "9781449331818"
             },
             "quantity": 1,
-            "isOrdered": false
+            "isOrdered": true
         }
-    ],
-    "customer": {
-        "id": 1,
-        "firstName": "Maxime",
-        "lastName": "Zeg",
-        "email": "maxime@test.be",
-        "phoneNumber": "020130506"
-    }
-  }
+    ]
+}
 
   private loadComponent: boolean = false;
   loadOrderGridItemComponent() {
