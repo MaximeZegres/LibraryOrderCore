@@ -1,3 +1,7 @@
 table {
     background-color: grey;
 }
+
+td, td {
+    font-size: 12px;
+}

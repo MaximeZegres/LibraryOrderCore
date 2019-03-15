@@ -3,22 +3,30 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OrderGridComponent } from './order-grid/order-grid.component';
-import { AddOrUpdateOrderComponent } from './add-or-update-order/add-or-update-order.component';
+import { AddOrderComponent } from './add-order/add-order.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderGridItemComponent } from './order-grid/order-grid-item.component';
+import { OrderService } from './shared/order.service';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
+import { NavBarComponent } from './nav/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderGridComponent,
-    AddOrUpdateOrderComponent,
-    OrderGridItemComponent
+    AddOrderComponent,
+    OrderGridItemComponent,
+    OrderDetailsComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

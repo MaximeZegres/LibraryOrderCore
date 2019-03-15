@@ -1,16 +1,17 @@
-<table class="table table-borderless noHover">
-        <thead>
-          <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Quantité</th>
-            <th scope="col">Est commandé?</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{order.orderItems.book.title}}</td>
-            <td>{{order.orderItems.book.author}}</td>
-            <td>{{order.orderItems.isOrdered}}</td>
-          </tr>
-        </tbody>
+<table *ngFor="let item of order.items">
+  <thead>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Editor</th>
+      <th>Quantity</th>
+      <th>Is Ordered?</th>
+  </thead>
+<tbody>
+    <td>{{item.book.title}}</td>
+    <td>{{item.book.author}}</td>
+    <td>{{item.book.editor}}</td>
+    <td>{{item.quantity}}</td>
+    <td>{{item.isOrdered}}</td>
+</tbody>
+  
 </table>

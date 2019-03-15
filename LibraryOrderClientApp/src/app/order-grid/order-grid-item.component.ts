@@ -6,5 +6,5 @@ import { Component, Input } from "@angular/core";
     styleUrls: ['./order-grid-item.component.css']
 })
 export class OrderGridItemComponent {
-    @Input() order:any
+    @Input() order: any
 }
