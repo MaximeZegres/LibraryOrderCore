@@ -14,6 +14,9 @@ export class AddOrderComponent implements OnInit {
 
 
   saveOrder(){
+    if(this.orderForm.valid){
+      
+    }
   }
 
 
