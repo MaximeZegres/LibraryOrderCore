@@ -11,6 +11,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { NavBarComponent } from './nav/nav-bar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { NavBarComponent } from './nav/nav-bar.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [OrderService],
   bootstrap: [AppComponent]

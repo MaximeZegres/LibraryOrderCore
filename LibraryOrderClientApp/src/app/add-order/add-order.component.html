@@ -1,9 +1,43 @@
-<h1>New order</h1>
-<hr>
 <div class="col-md-6">
-    <h3>[Create Event Form will go here]</h3>
-    <br/>
-    <br/>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    <div>
+        <h3>Add an order</h3>
+        <hr>
+        <div class="col-md-4">
+          <form [formGroup]="orderForm" (ngSubmit)="saveOrder()" autocomplete="off" novalidate>
+            <div class="form-group">
+              <label for="orderNumber">Order Number:</label>
+              <input formControlName="orderNumber" id="orderNumber" type="text" class="form-control" placeholder="Order Number..." />
+            </div>
+            <div class="md-form">
+              <input formControlName="datePicker" placeholder="Selected date" type="text" id="datePicker" class="form-control datepicker">
+              <label for="datePicker">Try me...</label>
+            </div>
+            <div class="form-group">
+              <label for="customerFirstName">First Name:</label>
+              <input formControlName="customerFirstName" id="customerFirstName" type="text" class="form-control" placeholder="First Name..." />
+            </div>
+            <div class="form-group">
+              <label for="customerLastName">Last Name:</label>
+              <input formControlName="customerLastName" id="customerLastName" type="text" class="form-control" placeholder="Last Name..." />
+            </div>
+            <div class="form-group">
+              <label for="customerEmail">Email:</label>
+              <input formControlName="customerEmail" id="customerEmail" type="email" class="form-control" placeholder="Email..." />
+            </div>
+            <div class="form-group">
+              <label for="customerPhoneNumber">Phone number:</label>
+              <input formControlName="customerPhoneNumber" id="customerPhoneNumber" type="email" class="form-control" placeholder="Phone number..." />
+            </div>
+            <br/>
+            <hr>
+            <div class="form-group">
+              <label for="book">Book:</label>
+              <input formControlName="book" id="book" type="email" class="form-control" placeholder="Book..." />
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+          </form>
+        </div>
+      </div>
 </div>
