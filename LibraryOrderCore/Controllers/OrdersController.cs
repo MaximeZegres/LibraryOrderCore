@@ -46,11 +46,11 @@ namespace LibraryOrderCore.Controllers
 
         // Get by id
         [HttpGet("{orderNumber}")]
-        public async Task<ActionResult<OrderModel>> Get(string orderNumber)
+        public async Task<ActionResult<OrderModel>> Get(string orderNumber, bool includeItems = false)
         {
             try
             {
-                var result = await _repository.GetOrderAsync(orderNumber);
+                var result = await _repository.GetOrderAsync(orderNumber, includeItems);
 
                 if (result == null)
                 {

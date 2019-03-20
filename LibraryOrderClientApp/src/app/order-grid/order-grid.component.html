@@ -1,6 +1,8 @@
 <div>
-  <h1>Commandes en cours</h1>
+
   <add-order></add-order>
+
+  <h2>Commandes en cours</h2>
   <hr>
     <div class="table-responsive">
         <table class="table table-bordered table-hover btn-table">
@@ -15,13 +17,13 @@
             </thead>
             <tbody>
               <tr *ngFor="let order of orders">
-                <th scope="row">{{order.id}}</th>
-                <td>{{order.orderDate}}</td>
-                <td>{{order.customer.firstName}} {{order.customer.lastName}}</td>
+                <th scope="row">{{order?.orderNumber}}</th>
+                <td>{{order?.orderDate}}</td>
+                <td>{{order?.customerFirstName}} {{order?.customerLastName}}</td>
                 <td>
                   <div>
                       <input type="checkbox" class="form-check-input" id="tableMaterialCheck">
-                      <label class="form-check-label" for="tableMaterialCheck">{{order.isContacted}}</label>
+                      <label class="form-check-label" for="tableMaterialCheck">{{order?.isContacted}}</label>
                   </div>     
                 </td>
                 <td><order-grid-item [order]="order"></order-grid-item></td>

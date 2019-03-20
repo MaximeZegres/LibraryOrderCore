@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { IOrder } from '../shared/order.model';
 
 @Component({
     selector: 'order-grid-item',
@@ -6,5 +7,5 @@ import { Component, Input } from "@angular/core";
     styleUrls: ['./order-grid-item.component.css']
 })
 export class OrderGridItemComponent {
-    @Input() order: any
+    @Input() order: IOrder
 }

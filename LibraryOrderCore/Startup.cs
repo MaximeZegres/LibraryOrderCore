@@ -33,6 +33,19 @@ namespace LibraryOrderCore
                 cfg.UseSqlServer(Configuration.GetConnectionString("LibraryOrderConnectionString"));
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddScoped<ILibraryOrderRepository, LibraryOrderRepository>();
             services.AddAutoMapper();
 
@@ -46,6 +59,8 @@ namespace LibraryOrderCore
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAll");
 
             app.UseMvc();
         }

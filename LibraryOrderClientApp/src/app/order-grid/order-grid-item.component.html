@@ -1,4 +1,4 @@
-<table *ngFor="let item of order.items">
+<table *ngFor="let item of order.orderItems">
   <thead>
       <th>Title</th>
       <th>Author</th>
@@ -7,11 +7,11 @@
       <th>Is Ordered?</th>
   </thead>
 <tbody>
-    <td>{{item.book.title}}</td>
-    <td>{{item.book.author}}</td>
-    <td>{{item.book.editor}}</td>
-    <td>{{item.quantity}}</td>
-    <td>{{item.isOrdered}}</td>
+    <td>{{item?.book.title}}</td>
+    <td>{{item?.book.author}}</td>
+    <td>{{item?.book.editor}}</td>
+    <td>{{item?.quantity}}</td>
+    <td>{{item?.isOrdered}}</td>
 </tbody>
   
 </table>
