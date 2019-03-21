@@ -18,13 +18,11 @@
             <tbody>
               <tr *ngFor="let order of orders">
                 <th scope="row">{{order?.orderNumber}}</th>
-                <td>{{order?.orderDate}}</td>
+                <td>{{order?.orderDate | date : 'shortDate'}}</td>
                 <td>{{order?.customerFirstName}} {{order?.customerLastName}}</td>
                 <td>
-                  <div>
-                      <input type="checkbox" class="form-check-input" id="tableMaterialCheck">
-                      <label class="form-check-label" for="tableMaterialCheck">{{order?.isContacted}}</label>
-                  </div>     
+                      <input type="checkbox" [checked]="order.isContacted" id="tableMaterialCheck" />
+                        
                 </td>
                 <td><order-grid-item [order]="order"></order-grid-item></td>
                 <td><button [routerLink]="['/orders', order.id]" type="button" class="btn btn-teal btn-rounded btn-sm m-0">Details</button></td>

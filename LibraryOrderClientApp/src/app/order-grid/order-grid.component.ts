@@ -7,8 +7,7 @@ import { IOrder } from '../shared/order.model';
   styleUrls: ['./order-grid.component.css']
 })
 export class OrderGridComponent implements OnInit {
-    orders:IOrder[]
-    order: IOrder
+    orders:IOrder[] = [];
 
     constructor(private orderService: OrderService) {
     }
@@ -16,7 +15,10 @@ export class OrderGridComponent implements OnInit {
 
   ngOnInit() {
     this.orderService.getOrders()
-      .subscribe((orders: IOrder[]) => this.orders = orders);
+    .subscribe((orders: IOrder[]) => this.orders = orders);
   }
+  
+  
+
 
 }

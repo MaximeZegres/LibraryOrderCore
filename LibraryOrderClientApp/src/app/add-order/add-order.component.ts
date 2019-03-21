@@ -13,25 +13,21 @@ export class AddOrderComponent implements OnInit {
   orderForm: FormGroup
 
 
-  saveOrder(){
-    if(this.orderForm.valid){
-      
-    }
-  }
 
 
+  
   cancel() {
     this.router.navigate(['/orders'])
   }
 
 
   ngOnInit() {
-    let orderNumber = new FormControl(Validators.required)
+    let orderNumber = new FormControl()
     let datePicker = new FormControl()
-    let customerFirstName = new FormControl(Validators.required)
-    let customerLastName = new FormControl(Validators.required)
+    let customerFirstName = new FormControl()
+    let customerLastName = new FormControl()
     let customerEmail = new FormControl()
-    let customerPhoneNumber = new FormControl(Validators.required)
+    let customerPhoneNumber = new FormControl()
     let book = new FormControl()
     this.orderForm = new FormGroup({
       orderNumber: orderNumber,
