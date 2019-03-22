@@ -15,7 +15,7 @@ export class OrderService {
     .pipe(catchError(this.handleError<IOrder[]>('getOrders')));  
   }
 
-  getOrder(orderNumber: number):Observable<IOrder> {
+  getOrder(orderNumber: string):Observable<IOrder> {
     return this.http.get<IOrder>('http://localhost:59654/api/orders/' + orderNumber + '?includeitems=true')
         .pipe(catchError(this.handleError<IOrder>('getOrder')));
   }

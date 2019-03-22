@@ -7,11 +7,11 @@ import { AddOrderComponent } from './add-order/add-order.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderGridItemComponent } from './order-grid/order-grid-item.component';
 import { OrderService } from './shared/order.service';
-import { OrderDetailsComponent } from './order-details/order-details.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { NavBarComponent } from './nav/nav-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderEditComponent } from './order-edit/order-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrderGridComponent,
     AddOrderComponent,
     OrderGridItemComponent,
-    OrderDetailsComponent,
+    OrderEditComponent,
     NavBarComponent
   ],
   imports: [
