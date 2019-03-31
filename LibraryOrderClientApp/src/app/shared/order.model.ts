@@ -1,5 +1,5 @@
 export interface IOrder {
-    orderId: number
+    orderId?: number
     orderNumber: string
     orderDate: string
     isContacted: boolean
@@ -7,18 +7,20 @@ export interface IOrder {
     customerLastName: string
     customerEmail: string
     customerPhoneNumber: string
-    orderItems: IOrderItems[]
+    orderItems?: IOrderItems[]
 }
 
 export interface IOrderItems {
     orderItemId: number
-    book: {
-        bookId: number
-        title: string
-        author: string
-        editor: string
-        isbn: string
-    }
+    book?: IBook;
     quantity: number
     isOrdered: boolean
+}
+
+export interface IBook {
+    bookId?: number
+    title: string
+    author: string
+    editor: string
+    isbn: string
 }

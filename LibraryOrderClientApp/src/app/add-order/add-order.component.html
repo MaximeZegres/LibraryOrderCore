@@ -1,43 +1,64 @@
-<div class="col-md-6">
+<div class="col-md-12">
     <div>
         <h2>Add an order</h2>
         <hr>
-        <div class="col-md-4">
-          <form [formGroup]="orderForm" (ngSubmit)="saveOrder()" autocomplete="off" novalidate>
-            <div class="form-group">
+        <div class="row">
+          <form [formGroup]="orderForm" autocomplete="off" novalidate>
+            <div class="input col">
               <label for="orderNumber">Order Number:</label>
               <input formControlName="orderNumber" id="orderNumber" type="text" class="form-control" placeholder="Order Number..." />
-            </div>
-            <div class="md-form">
-              <label for="datePicker">Date:</label>
-              <input formControlName="datePicker" placeholder="Selected date" type="text" id="datePicker" class="form-control datepicker">
-            </div>
-            <div class="form-group">
+            </div>          
+            <div class="input col">
               <label for="customerFirstName">First Name:</label>
               <input formControlName="customerFirstName" id="customerFirstName" type="text" class="form-control" placeholder="First Name..." />
             </div>
-            <div class="form-group">
-              <label for="customerLastName">Last Name:</label>
-              <input formControlName="customerLastName" id="customerLastName" type="text" class="form-control" placeholder="Last Name..." />
+            <div class="input col">
+                <label for="customerLastName">Last Name:</label>
+                <input formControlName="customerLastName" id="customerLastName" type="text" class="form-control" placeholder="Last Name..." />
             </div>
-            <div class="form-group">
+        <div class="row">
+            <div class="input col">
+              <label for="orderDate">Date:</label>
+              <input formControlName="orderDate" placeholder="Selected date" type="text" id="datePicker" class="form-control datepicker">
+            </div> 
+            <div class="input col">
               <label for="customerEmail">Email:</label>
               <input formControlName="customerEmail" id="customerEmail" type="email" class="form-control" placeholder="Email..." />
             </div>
-            <div class="form-group">
+            <div class="input col">
               <label for="customerPhoneNumber">Phone number:</label>
               <input formControlName="customerPhoneNumber" id="customerPhoneNumber" type="email" class="form-control" placeholder="Phone number..." />
             </div>
-            <br/>
+        </div>
             <hr>
-            <div class="form-group">
-              <label for="book">Book:</label>
-              <input formControlName="book" id="book" type="email" class="form-control" placeholder="Book..." />
-            </div>
+            <form [formGroup]="bookForm" autocomplete="off" novalidate>
+            <div class="row">
+              <div class="input col">
+                <label for="title">Date:</label>
+                <input formControlName="title" placeholder="Book's title" type="text" id="title" class="form-control">
+              </div> 
+              <div class="input col">
+                <label for="author">Email:</label>
+                <input formControlName="author" id="author" type="text" class="form-control" placeholder="Author..." />
+              </div>
+              <div class="input col">
+                <label for="editor">Phone number:</label>
+                <input formControlName="editor" id="editor" type="text" class="form-control" placeholder="Editor..." />
+              </div>
+              <div class="input col">
+                <label for="isbn">Phone number:</label>
+                <input formControlName="isbn" id="isbn" type="text" class="form-control" placeholder="ISBN" />
+              </div>
+          </div>
+        </form>
+
+
+
+
             <br/>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary" (ngSubmit)="saveOrder()">Save</button>
             <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
           </form>
-        </div>
-      </div>
+    </div>
 </div>
+

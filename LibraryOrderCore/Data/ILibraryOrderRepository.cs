@@ -17,7 +17,7 @@ namespace LibraryOrderCore.Data
         Task<Order> GetOrderAsync(string orderNumber, bool includeItems = false);
 
         // OrderItems
-        Task<OrderItem[]> GetOrderItemsByOrderNumberAsync(string orderNumber, bool includeItems = false);
+        Task<OrderItem[]> GetOrderItemsByOrderNumberAsync(string orderNumber);
         Task<OrderItem> GetOrderItemByOrderNumberAsync(string orderNumber, int orderItemId, bool includeItems = false);
 
         // Books

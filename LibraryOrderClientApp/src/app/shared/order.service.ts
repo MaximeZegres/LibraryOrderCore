@@ -6,24 +6,26 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class OrderService {
-    constructor(private http: HttpClient){
+  baseUrl = "http://localhost:59654/api/";
+  baseOrdersUrl = this.baseUrl + 'orders?includeitems=true';
 
+
+    constructor(private http: HttpClient){
     }
 
   getOrders():Observable<IOrder[]> {
-    return this.http.get<IOrder[]>('http://localhost:59654/api/orders?includeitems=true')
+    return this.http.get<IOrder[]>(this.baseOrdersUrl)
     .pipe(catchError(this.handleError<IOrder[]>('getOrders')));  
   }
 
   getOrder(orderNumber: string):Observable<IOrder> {
-    return this.http.get<IOrder>('http://localhost:59654/api/orders/' + orderNumber + '?includeitems=true')
+    return this.http.get<IOrder>(this.baseOrdersUrl + orderNumber + '?includeitems=true')
         .pipe(catchError(this.handleError<IOrder>('getOrder')));
   }
 
-  saveOrder(order){
-    let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})}
-    this.http.post<IOrder>('http://localhost:59654/api/orders', order, options)
-    .pipe(catchError(this.handleError<IOrder>('saveOrder')));
+  saveOrder(order: IOrder) : Observable<IOrder> {
+    return this.http.post<IOrder>(this.baseOrdersUrl, order.orderId)
+      .pipe(catchError(this.handleError<IOrder>('saveOrder')));
   }
 
   private handleError<T>(operation = 'operation', result?: T){

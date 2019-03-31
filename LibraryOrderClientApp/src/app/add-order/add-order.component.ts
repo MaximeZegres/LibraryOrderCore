@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { IOrder, IOrderItems, IBook } from '../shared/order.model';
 
 @Component({
   selector: 'add-order',
@@ -8,36 +9,64 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./add-order.component.css']
 })
 export class AddOrderComponent implements OnInit {
-  constructor(private router: Router) { }
+  
 
-  orderForm: FormGroup
-
-
-
+  orderForm: FormGroup;
+  bookForm: FormGroup;
+  order: IOrder = {
+    orderNumber: '',
+    orderDate: '',
+    isContacted: false,
+    customerFirstName: '',
+    customerLastName: '',
+    customerEmail: '',
+    customerPhoneNumber: ''
+  };
+  orderItems: IOrderItems[];
+  book: IBook = {
+    title: '',
+    author: '',
+    editor: '',
+    isbn: ''
+  }
 
   
+  constructor(private router: Router, private formBuilder: FormBuilder) {   
+  }
+
+  
+  
+
+  buildForm() {
+    this.orderForm = this.formBuilder.group({
+      orderNumber: [this.order.customerFirstName, Validators.required],
+      orderDate: [this.order.orderDate, Validators.required],
+      customerFirstName: [this.order.customerFirstName, Validators.required],
+      customerLastName: [this.order.customerLastName, Validators.required],
+      customerEmail: [this.order.customerEmail, Validators.required],
+      customerPhoneNumber: [this.order.customerPhoneNumber, Validators.required],
+    });
+    this.bookForm = this.formBuilder.group({
+      title: [this.book.title, Validators.required],
+      author: [this.book.author, Validators.required],
+      editor: [this.book.editor, Validators.required],
+      isbn: [this.book.isbn, Validators.required],
+    });
+  }
+
+  saveOrder() {
+
+  }
+
   cancel() {
     this.router.navigate(['/orders'])
   }
 
-
   ngOnInit() {
-    let orderNumber = new FormControl()
-    let datePicker = new FormControl()
-    let customerFirstName = new FormControl()
-    let customerLastName = new FormControl()
-    let customerEmail = new FormControl()
-    let customerPhoneNumber = new FormControl()
-    let book = new FormControl()
-    this.orderForm = new FormGroup({
-      orderNumber: orderNumber,
-      datePicker: datePicker,
-      customerFirstName: customerFirstName,
-      customerLastName: customerLastName,
-      customerEmail: customerEmail,
-      customerPhoneNumber: customerPhoneNumber,
-      book: book
-    })
+    this.buildForm();
   }
+
+
+
 
 }

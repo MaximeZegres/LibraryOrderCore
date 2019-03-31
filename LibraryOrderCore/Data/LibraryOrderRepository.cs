@@ -80,15 +80,10 @@ namespace LibraryOrderCore.Data
 
 
         // Get OrderItems by ID
-        public async Task<OrderItem[]> GetOrderItemsByOrderNumberAsync(string orderNumber, bool includeItems = false)
+        public async Task<OrderItem[]> GetOrderItemsByOrderNumberAsync(string orderNumber)
         {
-            IQueryable<OrderItem> query = _context.Items;
-
-            if (includeItems)
-            {
-                query = query
-                            .Include(i => i.Book);
-            }
+            IQueryable<OrderItem> query = _context.Items
+                                                    .Include(i => i.Book);
 
 
             // Add condition query
