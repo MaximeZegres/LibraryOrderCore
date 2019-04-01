@@ -12,6 +12,7 @@ import { appRoutes } from './routes';
 import { NavBarComponent } from './nav/nav-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderEditComponent } from './order-edit/order-edit.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OrderEditComponent } from './order-edit/order-edit.component';
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [OrderService],
   bootstrap: [AppComponent]
