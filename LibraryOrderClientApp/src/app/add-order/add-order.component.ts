@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { IOrder, IOrderItems, IBook } from '../shared/order.model';
 
 @Component({
@@ -12,7 +12,6 @@ export class AddOrderComponent implements OnInit {
   
 
   orderForm: FormGroup;
-  bookForm: FormGroup;
   order: IOrder = {
     orderNumber: '',
     orderDate: '',
@@ -22,7 +21,10 @@ export class AddOrderComponent implements OnInit {
     customerEmail: '',
     customerPhoneNumber: ''
   };
-  orderItems: IOrderItems[];
+  orderItems: IOrderItems = {
+    quantity: 0,
+    isOrdered: false
+  }
   book: IBook = {
     title: '',
     author: '',
@@ -30,14 +32,15 @@ export class AddOrderComponent implements OnInit {
     isbn: ''
   }
 
+  get orderBooks(): FormArray {
+    return <FormArray>this.orderForm.get('orderBooks');
+  }
+
   
   constructor(private router: Router, private formBuilder: FormBuilder) {   
   }
 
-  
-  
-
-  buildForm() {
+  ngOnInit() {
     this.orderForm = this.formBuilder.group({
       orderNumber: [this.order.customerFirstName, Validators.required],
       orderDate: [this.order.orderDate, Validators.required],
@@ -45,16 +48,18 @@ export class AddOrderComponent implements OnInit {
       customerLastName: [this.order.customerLastName, Validators.required],
       customerEmail: [this.order.customerEmail, Validators.required],
       customerPhoneNumber: [this.order.customerPhoneNumber, Validators.required],
-    });
-    this.bookForm = this.formBuilder.group({
-      title: [this.book.title, Validators.required],
-      author: [this.book.author, Validators.required],
-      editor: [this.book.editor, Validators.required],
-      isbn: [this.book.isbn, Validators.required],
+      orderBooks: this.formBuilder.array([ this.buildBooks() ])
     });
   }
 
-  saveOrder() {
+  addBook(): void {
+    this.orderBooks.push(this.buildBooks());
+  }
+  
+
+    saveOrder() {
+      console.log(this.orderForm);
+      console.log('Saved: ' + JSON.stringify(this.orderForm.value));
 
   }
 
@@ -62,10 +67,17 @@ export class AddOrderComponent implements OnInit {
     this.router.navigate(['/orders'])
   }
 
-  ngOnInit() {
-    this.buildForm();
-  }
 
+
+  buildBooks(): FormGroup {
+    return this.formBuilder.group({
+      title: '',
+      author: '',
+      editor: '',
+      isbn: '',
+      quantity: ''
+    });
+  }
 
 
 

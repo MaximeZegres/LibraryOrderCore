@@ -11,7 +11,7 @@ export interface IOrder {
 }
 
 export interface IOrderItems {
-    orderItemId: number
+    orderItemId?: number
     book?: IBook;
     quantity: number
     isOrdered: boolean

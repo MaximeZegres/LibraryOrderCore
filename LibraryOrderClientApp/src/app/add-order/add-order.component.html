@@ -1,64 +1,158 @@
-<div class="col-md-12">
-    <div>
-        <h2>Add an order</h2>
-        <hr>
-        <div class="row">
-          <form [formGroup]="orderForm" autocomplete="off" novalidate>
-            <div class="input col">
-              <label for="orderNumber">Order Number:</label>
-              <input formControlName="orderNumber" id="orderNumber" type="text" class="form-control" placeholder="Order Number..." />
-            </div>          
-            <div class="input col">
-              <label for="customerFirstName">First Name:</label>
-              <input formControlName="customerFirstName" id="customerFirstName" type="text" class="form-control" placeholder="First Name..." />
+<div class="card">
+  <div class="card-header">
+    Add Order
+  </div>
+
+  <div class="card-body">
+    <form novalidate
+          (ngSubmit)="save()"
+          [formGroup]="orderForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="firstNameId">First Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="firstNameId"
+                 type="text"
+                 placeholder="First Name (required)"
+                 formControlName="customerFirstName" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="lastNameId">Last Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="lastNameId"
+                 type="text"
+                 placeholder="Last Name (required)"
+                 formControlName="customerLastName" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="customerEmailId">Email</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="customerEmailId"
+                 type="text"
+                 placeholder="Email (required)"
+                 formControlName="customerEmail"
+                 [ngClass]="{'is-invalid': (orderForm.get('customerEmail').touched ||
+                                            orderForm.get('customerEmail').dirty) &&
+                                            !orderForm.get('customerEmail').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="orderForm.get('customerEmail').errors?.required">
+              Please enter your email.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="customerPhoneNumberId">Phone</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="customerPhoneNumberId"
+                 type="tel"
+                 placeholder="PhoneNumber"
+                 formControlName="customerPhoneNumber"
+                 [ngClass]="{'is-invalid': !orderForm.get('customerPhoneNumber').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="orderForm.get('customerPhoneNumber').errors?.required">
+              Please enter your phone number.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <hr>
+      <hr>
+      <hr>
+
+
+      <div>
+        <div formArrayName="orderBooks"
+             *ngFor="let orderBooks of orderBooks.controls; let i=index">
+          <div [formGroupName]="i">     
+            <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     attr.for="{{'titleId' + i}}">Book's Title</label>
+              <div class="col-md-8">
+                <input class="form-control"
+                       id="{{'titleId' + i}}"
+                       type="text"
+                       placeholder="Book's Title"
+                       formControlName="title">
+              </div>
             </div>
-            <div class="input col">
-                <label for="customerLastName">Last Name:</label>
-                <input formControlName="customerLastName" id="customerLastName" type="text" class="form-control" placeholder="Last Name..." />
+
+            <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     for="editorId">Editor</label>
+              <div class="col-md-8">
+                <input class="form-control"
+                       id="editorId"
+                       type="text"
+                       placeholder="Editor"
+                       formControlName="editor">
+              </div>
             </div>
-        <div class="row">
-            <div class="input col">
-              <label for="orderDate">Date:</label>
-              <input formControlName="orderDate" placeholder="Selected date" type="text" id="datePicker" class="form-control datepicker">
-            </div> 
-            <div class="input col">
-              <label for="customerEmail">Email:</label>
-              <input formControlName="customerEmail" id="customerEmail" type="email" class="form-control" placeholder="Email..." />
+
+            <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     for="isbnId">ISBN</label>
+              <div class="col-md-3">
+                <input class="form-control"
+                       id="isbnId"
+                       type="text"
+                       placeholder="ISBN"
+                       formControlName="isbn">
+              </div>
             </div>
-            <div class="input col">
-              <label for="customerPhoneNumber">Phone number:</label>
-              <input formControlName="customerPhoneNumber" id="customerPhoneNumber" type="email" class="form-control" placeholder="Phone number..." />
+
+            <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     for="quantityId">Quantity</label>
+              <div class="col-md-3">
+                <input class="form-control"
+                       id="quantityId"
+                       type="text"
+                       placeholder="Quantity"
+                       formControlName="quantity">
+              </div>
             </div>
         </div>
-            <hr>
-            <form [formGroup]="bookForm" autocomplete="off" novalidate>
-            <div class="row">
-              <div class="input col">
-                <label for="title">Date:</label>
-                <input formControlName="title" placeholder="Book's title" type="text" id="title" class="form-control">
-              </div> 
-              <div class="input col">
-                <label for="author">Email:</label>
-                <input formControlName="author" id="author" type="text" class="form-control" placeholder="Author..." />
-              </div>
-              <div class="input col">
-                <label for="editor">Phone number:</label>
-                <input formControlName="editor" id="editor" type="text" class="form-control" placeholder="Editor..." />
-              </div>
-              <div class="input col">
-                <label for="isbn">Phone number:</label>
-                <input formControlName="isbn" id="isbn" type="text" class="form-control" placeholder="ISBN" />
-              </div>
+        </div>
+      </div>
+
+
+        <div class="form-group row mb-2">
+          <div class="col-md-4">
+            <button class="btn btn-outline-primary"
+                    type="button"
+                    [disabled]="!orderBooks.valid"
+                    (click)="addBook()">
+              Add Another Book
+            </button>
           </div>
-        </form>
+        </div>
 
-
-
-
-            <br/>
-            <button type="submit" class="btn btn-primary" (ngSubmit)="saveOrder()">Save</button>
-            <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
-          </form>
-    </div>
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  type="submit"
+                  style="width:80px"
+                  [title]="orderForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!orderForm.valid">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
-
