@@ -24,7 +24,7 @@ export class AddOrderComponent implements OnInit {
   orderItems: IOrderItems = {
     quantity: 0,
     isOrdered: false
-  }
+  };
   book: IBook = {
     title: '',
     author: '',
@@ -52,6 +52,18 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
+  buildBooks(): FormGroup {
+    return this.formBuilder.group({
+      title: '',
+      author: '',
+      editor: '',
+      isbn: '',
+      quantity: ''
+    });
+  }
+
+
+
   addBook(): void {
     this.orderBooks.push(this.buildBooks());
   }
@@ -69,15 +81,7 @@ export class AddOrderComponent implements OnInit {
 
 
 
-  buildBooks(): FormGroup {
-    return this.formBuilder.group({
-      title: '',
-      author: '',
-      editor: '',
-      isbn: '',
-      quantity: ''
-    });
-  }
+
 
 
 
