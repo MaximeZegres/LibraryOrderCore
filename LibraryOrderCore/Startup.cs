@@ -36,6 +36,16 @@ namespace LibraryOrderCore
             services.AddScoped<ILibraryOrderRepository, LibraryOrderRepository>();
             services.AddAutoMapper();
 
+            services.AddSwaggerGen(setupAction =>
+            {
+            setupAction.SwaggerDoc("LibraryOrderCoreAPISpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "LibraryOrderCore API",
+                        Version = "1"
+                    }
+                    );
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -46,6 +56,19 @@ namespace LibraryOrderCore
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/LibraryOrderCoreAPISpecification/swagger.json", "LibraryOrder API");
+            });
 
             app.UseMvc();
         }

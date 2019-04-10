@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Routing;
 namespace LibraryOrderCore.Controllers
 {
     [ApiController]
-    [Route("api/orders/{orderNumber}/orderItems")]
+    [Route("api/orders/{OrderItemId}/orderItems")]
     public class OrderItemsController : ControllerBase
     {
         private readonly ILibraryOrderRepository _repository;
@@ -29,11 +29,11 @@ namespace LibraryOrderCore.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<OrderItem[]>> Get(string orderNumber)
+        public async Task<ActionResult<OrderItem[]>> Get(int id)
         {
             try
             {
-                var orderItems = await _repository.GetOrderItemsByOrderNumberAsync(orderNumber);
+                var orderItems = await _repository.GetOrderItemsAsync(id);
                 return _mapper.Map<OrderItem[]>(orderItems);
             }
             catch (Exception)
@@ -43,11 +43,11 @@ namespace LibraryOrderCore.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<OrderItem>> Get(string orderNumber, int id)
+        public async Task<ActionResult<OrderItem>> Get(int orderItemId, int id)
         {
             try
             {
-                var orderItem = await _repository.GetOrderItemByOrderNumberAsync(orderNumber ,id);
+                var orderItem = await _repository.GetOrderItemByIdAsync(orderItemId ,id);
                 return _mapper.Map<OrderItem>(orderItem);
             }
             catch (Exception)
@@ -57,11 +57,11 @@ namespace LibraryOrderCore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrderItemModel>> Post(string orderNumber, OrderItemModel model)
+        public async Task<ActionResult<OrderItemModel>> Post(int id, OrderItemModel model)
         {
             try
             {
-                var order = await _repository.GetOrderAsync(orderNumber);
+                var order = await _repository.GetOrderAsync(id);
                 if (order == null)
                 {
                     return BadRequest("Order does not exist");
@@ -86,7 +86,7 @@ namespace LibraryOrderCore.Controllers
 
                 if(await _repository.SaveChangesAsync())
                 {
-                    var url = _linkGenerator.GetPathByAction(HttpContext, "Get", values: new { orderNumber, id = orderItem.OrderItemId });
+                    var url = _linkGenerator.GetPathByAction(HttpContext, "Get", values: new { orderItem, id = order.Id });
 
                     return Created(url, _mapper.Map<OrderItemModel>(orderItem));
                 }
@@ -103,11 +103,11 @@ namespace LibraryOrderCore.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<OrderItemModel>> Patch(string orderNumber, int id, OrderItemModel model)
+        public async Task<ActionResult<OrderItemModel>> Patch(int id, int orderItemId, OrderItemModel model)
         {
             try
             {
-                var orderItem = await _repository.GetOrderItemByOrderNumberAsync(orderNumber, id);
+                var orderItem = await _repository.GetOrderItemByIdAsync(id, orderItemId);
                 if (orderItem == null)
                 {
                     return NotFound("Could not find the orderItem");
@@ -119,24 +119,22 @@ namespace LibraryOrderCore.Controllers
                 {
                     return _mapper.Map<OrderItemModel>(orderItem);
                 }
-                else
-                {
-                    return BadRequest("Failed to update database");
-                }
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Failed to get OrderItem");
             }
+
+            return BadRequest("Could not find the orderItem");
         }
 
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(string orderNumber, int id)
+        public async Task<IActionResult> Delete(int id, int orderItemId)
         {
             try
             {
-                var orderItem = await _repository.GetOrderItemByOrderNumberAsync(orderNumber, id);
+                var orderItem = await _repository.GetOrderItemByIdAsync(id, orderItemId);
                 if (orderItem == null)
                 {
                     return NotFound("Failed to find the orderItem to delete");

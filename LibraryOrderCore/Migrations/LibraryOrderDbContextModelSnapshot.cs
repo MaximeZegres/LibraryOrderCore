@@ -59,7 +59,7 @@ namespace LibraryOrderCore.Migrations
 
             modelBuilder.Entity("LibraryOrderCore.Data.Entities.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -71,7 +71,7 @@ namespace LibraryOrderCore.Migrations
 
                     b.Property<string>("OrderNumber");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
