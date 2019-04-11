@@ -5,7 +5,7 @@
 
   <div class="card-body">
     <form novalidate
-          (ngSubmit)="saveOrder()"
+          (ngSubmit)="saveCustomer()"
           [formGroup]="orderForm">
 
         <div class="form-group row mb-2">
@@ -80,91 +80,6 @@
                  formControlName="customerPhoneNumber" />
         </div>
       </div>
-
-      <hr>
-      <hr>
-      <hr>
-
-
-      <div>
-        <div formArrayName="orderBooks"
-             *ngFor="let orderBooks of orderBooks.controls; let i=index">
-          <div [formGroupName]="i">     
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     attr.for="{{'titleId' + i}}">Title:</label>
-              <div class="col-md-8">
-                <input class="form-control"
-                       id="{{'titleId' + i}}"
-                       type="text"
-                       placeholder="Book's Title"
-                       formControlName="title">
-              </div>
-            </div>
-
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     attr.for="{{'AuthorId' + i}}">Author</label>
-              <div class="col-md-8">
-                <input class="form-control"
-                       id="{{'AuthorId' + i}}"
-                       type="text"
-                       placeholder="Author"
-                       formControlName="author">
-              </div>
-            </div>
-
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     for="editorId">Editor</label>
-              <div class="col-md-8">
-                <input class="form-control"
-                       id="editorId"
-                       type="text"
-                       placeholder="Editor"
-                       formControlName="editor">
-              </div>
-            </div>
-
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     for="isbnId">ISBN</label>
-              <div class="col-md-3">
-                <input class="form-control"
-                       id="isbnId"
-                       type="text"
-                       placeholder="ISBN"
-                       formControlName="isbn">
-              </div>
-            </div>
-
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     for="quantityId">Quantity</label>
-              <div class="col-md-3">
-                <input class="form-control"
-                       id="quantityId"
-                       type="text"
-                       placeholder="Quantity"
-                       formControlName="quantity">
-              </div>
-            </div>
-        </div>
-        </div>
-      </div>
-
-
-        <div class="form-group row mb-2">
-          <div class="col-md-4">
-            <button class="btn btn-outline-primary"
-                    type="button"
-                    [disabled]="!orderBooks.valid"
-                    (click)="addBook()">
-              Add Another Book
-            </button>
-          </div>
-        </div>
-
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
           <button class="btn btn-primary mr-3"
@@ -176,6 +91,98 @@
           </button>
         </div>
       </div>
+
+      <hr>
+      <hr>    
+
+      <div class="card-body">
+        <div formArrayName="orderItems"
+            *ngFor="let orderItems of orderItems.controls; let i=index">
+            <div [formGroupName]="i">   
+                <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                        attr.for="{{'titleId' + i}}">Title:</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                        id="{{'titleId' + i}}"
+                        type="text"
+                        placeholder="Book's Title"
+                        formControlName="title">
+                </div>
+                </div>
+        
+                <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                        attr.for="{{'AuthorId' + i}}">Author</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                        id="{{'AuthorId' + i}}"
+                        type="text"
+                        placeholder="Author"
+                        formControlName="author">
+                </div>
+                </div>
+        
+                <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                        for="editorId">Editor</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                        id="editorId"
+                        type="text"
+                        placeholder="Editor"
+                        formControlName="editor">
+                </div>
+                </div>
+        
+                <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                        for="isbnId">ISBN</label>
+                <div class="col-md-3">
+                    <input class="form-control"
+                        id="isbnId"
+                        type="text"
+                        placeholder="ISBN"
+                        formControlName="isbn">
+                </div>
+              </div>
+                <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                        for="quantityId">Quantity</label>
+                <div class="col-md-3">
+                    <input class="form-control"
+                        id="quantityId"
+                        type="text"
+                        placeholder="Quantity"
+                        formControlName="quantity">
+                </div>
+                </div>
+            </div>
+          </div>
+
+        <div class="form-group row mb-2">
+            <div class="col-md-4">
+              <button class="btn btn-outline-primary"
+                      type="button"
+                      [disabled]="!orderItems.valid"
+                      (click)="addBook()">
+                Add Another Book
+              </button>
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <div class="offset-md-2 col-md-4">
+              <button class="btn btn-primary mr-3"
+                      type="submit"
+                      style="width:80px"
+                      [title]="orderForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                      >
+                Save
+              </button>
+            </div>
+        </div>
+        </div>
+
     </form>
   </div>
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { IOrder, IOrderItems, IBook } from '../shared/order.model';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'add-order',
@@ -9,80 +8,56 @@ import { IOrder, IOrderItems, IBook } from '../shared/order.model';
   styleUrls: ['./add-order.component.css']
 })
 export class AddOrderComponent implements OnInit {
-  
+  orderForm: FormGroup
 
-  orderForm: FormGroup;
-  order: IOrder = {
-    orderNumber: '',
-    orderDate: '',
-    isContacted: false,
-    customerFirstName: '',
-    customerLastName: '',
-    customerEmail: '',
-    customerPhoneNumber: ''
-  };
-  orderItems: IOrderItems = {
-    quantity: 0,
-    isOrdered: false
-  };
-  book: IBook = {
-    title: '',
-    author: '',
-    editor: '',
-    isbn: ''
+  constructor(private router: Router, private fb: FormBuilder) {   
   }
 
-  get orderBooks(): FormArray {
-    return <FormArray>this.orderForm.get('orderBooks');
+  get orderItems(): FormArray {
+    return <FormArray>this.orderForm.get('orderItems')
   }
 
-  
-  constructor(private router: Router, private formBuilder: FormBuilder) {   
-  }
 
   ngOnInit() {
-    this.orderForm = this.formBuilder.group({
-      orderNumber: [this.order.customerFirstName, Validators.required],
-      orderDate: [this.order.orderDate, Validators.required],
-      customerFirstName: [this.order.customerFirstName, Validators.required],
-      customerLastName: [this.order.customerLastName, Validators.required],
-      customerEmail: [this.order.customerEmail, Validators.required],
-      customerPhoneNumber: [this.order.customerPhoneNumber, Validators.required],
-      orderBooks: this.formBuilder.array([ this.buildBooks() ])
+    this.orderForm = this.fb.group({
+      orderNumber: ['', [Validators.required]],
+      orderDate: ['', [Validators.required]],
+      isContacted: [false, [Validators.required]],
+      customerFirstName: ['', [Validators.required]],
+      customerLastName : ['', [Validators.required]],
+      customerEmail: ['', [Validators.required]],
+      customerPhoneNumber: ['', [Validators.required]],
+      orderItems: this.fb.array([ this.buildBooks() ])
     });
   }
 
-  buildBooks(): FormGroup {
-    return this.formBuilder.group({
-      title: '',
-      author: '',
-      editor: '',
-      isbn: '',
-      quantity: ''
-    });
-  }
+    addBooks() : void {
+        this.orderItems.push(this.buildBooks());
+    }
 
 
-
-  addBook(): void {
-    this.orderBooks.push(this.buildBooks());
-  }
+    buildBooks() {
+      return this.fb.group({
+        quantity: ['', [Validators.required]],
+        isOrdered: [false, [Validators.required]],
+        book: this.fb.group({
+          title: ['', [Validators.required]],
+          author: ['', [Validators.required]],
+          editor: ['', [Validators.required]],
+          isbn: ['', [Validators.required]]
+        })
+      });
+    }
   
 
-    saveOrder() {
-      console.log(this.orderForm);
-      console.log('Saved: ' + JSON.stringify(this.orderForm.value));
-
+  saveCustomer() {
+    console.log(this.orderForm);
+    console.log('Saved: ' + JSON.stringify(this.orderForm.value));
   }
 
   cancel() {
     this.router.navigate(['/orders'])
   }
-
-
-
-
-
 
 
 }
