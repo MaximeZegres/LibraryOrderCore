@@ -14,7 +14,7 @@ export class AddOrderComponent implements OnInit {
   }
 
   get orderItems(): FormArray {
-    return <FormArray>this.orderForm.get('orderItems')
+    return this.orderForm.get('orderItems') as FormArray;
   }
 
 

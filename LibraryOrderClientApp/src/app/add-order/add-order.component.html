@@ -96,67 +96,69 @@
       <hr>    
 
       <div class="card-body">
-        <div formArrayName="orderItems"
-            *ngFor="let orderItems of orderItems.controls; let i=index">
-            <div [formGroupName]="i">   
+        <div formArrayName="orderItems">
+            <div *ngFor="let orderItem of orderItems.controls; let i=index">
                 <div class="form-group row mb-2">
-                <label class="col-md-2 col-form-label"
-                        attr.for="{{'titleId' + i}}">Title:</label>
-                <div class="col-md-8">
-                    <input class="form-control"
-                        id="{{'titleId' + i}}"
-                        type="text"
-                        placeholder="Book's Title"
-                        formControlName="title">
-                </div>
-                </div>
-        
-                <div class="form-group row mb-2">
-                <label class="col-md-2 col-form-label"
-                        attr.for="{{'AuthorId' + i}}">Author</label>
-                <div class="col-md-8">
-                    <input class="form-control"
-                        id="{{'AuthorId' + i}}"
-                        type="text"
-                        placeholder="Author"
-                        formControlName="author">
-                </div>
-                </div>
-        
-                <div class="form-group row mb-2">
-                <label class="col-md-2 col-form-label"
-                        for="editorId">Editor</label>
-                <div class="col-md-8">
-                    <input class="form-control"
-                        id="editorId"
-                        type="text"
-                        placeholder="Editor"
-                        formControlName="editor">
-                </div>
-                </div>
-        
-                <div class="form-group row mb-2">
-                <label class="col-md-2 col-form-label"
-                        for="isbnId">ISBN</label>
-                <div class="col-md-3">
-                    <input class="form-control"
-                        id="isbnId"
-                        type="text"
-                        placeholder="ISBN"
-                        formControlName="isbn">
-                </div>
+                    <label class="col-md-2 col-form-label"
+                            for="quantityId">Quantity</label>
+                    <div class="col-md-3">
+                        <input class="form-control"
+                            id="quantityId"
+                            type="text"
+                            placeholder="Quantity"
+                            formControlName="quantity">
+                    </div>
+                    </div>
+
+              <div [formGroup]="book">
+                                      <div class="form-group row mb-2">
+                                      <label class="col-md-2 col-form-label"
+                                              attr.for="{{'titleId' + n}}">Title:</label>
+                                      <div class="col-md-8">
+                                          <input class="form-control"
+                                              id="{{'titleId' + n}}"
+                                              type="text"
+                                              placeholder="Book's Title"
+                                              formControlName="title">
+                                      </div>
+                                      </div>
+                              
+                                      <div class="form-group row mb-2">
+                                      <label class="col-md-2 col-form-label"
+                                              attr.for="{{'AuthorId' + n}}">Author</label>
+                                      <div class="col-md-8">
+                                          <input class="form-control"
+                                              id="{{'AuthorId' + n}}"
+                                              type="text"
+                                              placeholder="Author"
+                                              formControlName="author">
+                                      </div>
+                                      </div>
+                              
+                                      <div class="form-group row mb-2">
+                                      <label class="col-md-2 col-form-label"
+                                              for="editorId">Editor</label>
+                                      <div class="col-md-8">
+                                          <input class="form-control"
+                                              id="editorId"
+                                              type="text"
+                                              placeholder="Editor"
+                                              formControlName="editor">
+                                      </div>
+                                      </div>
+                              
+                                      <div class="form-group row mb-2">
+                                      <label class="col-md-2 col-form-label"
+                                              for="isbnId">ISBN</label>
+                                      <div class="col-md-3">
+                                          <input class="form-control"
+                                              id="isbnId"
+                                              type="text"
+                                              placeholder="ISBN"
+                                              formControlName="isbn">
+                                      </div>
+                                    </div>
               </div>
-                <div class="form-group row mb-2">
-                <label class="col-md-2 col-form-label"
-                        for="quantityId">Quantity</label>
-                <div class="col-md-3">
-                    <input class="form-control"
-                        id="quantityId"
-                        type="text"
-                        placeholder="Quantity"
-                        formControlName="quantity">
-                </div>
-                </div>
             </div>
           </div>
 
