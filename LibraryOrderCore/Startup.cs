@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using LibraryOrderCore.Data;
@@ -36,6 +38,21 @@ namespace LibraryOrderCore
             services.AddScoped<ILibraryOrderRepository, LibraryOrderRepository>();
             services.AddAutoMapper();
 
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("LibraryOrderCoreAPISpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "LibraryOrderCore API",
+                    Version = "1"
+                });
+
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -46,6 +63,14 @@ namespace LibraryOrderCore
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/LibraryOrderCoreAPISpecification/swagger.json",
+                    "LibraryOrderCoreAPI");
+            });
 
             app.UseMvc();
         }

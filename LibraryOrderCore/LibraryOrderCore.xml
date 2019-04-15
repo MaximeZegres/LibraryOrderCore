@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LibraryOrderCore</name>
+    </assembly>
+    <members>
+        <member name="M:LibraryOrderCore.Controllers.OrdersController.Get(System.Boolean)">
+            <summary>
+            Get All Orders
+            </summary>
+            <param name="includeItems">A boolean to include the orderItems to the json result.</param>
+            <returns>An order with the CustomerInformation (and orderItems + books) if the includeItems is specified in the URL</returns>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Book.BookId">
+            <summary>
+            Id of the Book
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Book.Title">
+            <summary>
+            Title of the Book
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Book.Author">
+            <summary>
+            Author of the Book
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Book.Editor">
+            <summary>
+            Editor of the Book
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Book.ISBN">
+            <summary>
+            ISBN of the book
+            </summary>
+        </member>
+    </members>
+</doc>

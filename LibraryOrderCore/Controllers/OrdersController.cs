@@ -27,6 +27,11 @@ namespace LibraryOrderCore.Controllers
             _linkGenerator = linkGenerator;
         }
 
+        /// <summary>
+        /// Get All Orders
+        /// </summary>
+        /// <param name="includeItems">A boolean to include the orderItems to the json result.</param>
+        /// <returns>An order with the CustomerInformation (and orderItems + books) if the includeItems is specified in the URL</returns>
 
         // Get all orders
         [HttpGet]
@@ -67,6 +72,7 @@ namespace LibraryOrderCore.Controllers
         }
 
        // Post
+       [HttpPost]
         public async Task<ActionResult<OrderModel>> Post(OrderModel model)
         {
             try
