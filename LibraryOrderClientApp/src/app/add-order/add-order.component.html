@@ -97,7 +97,7 @@
 
       <div class="card-body">
         <div formArrayName="orderItems">
-            <div *ngFor="let orderItem of orderItems.controls; let i=index">
+            <div *ngFor="let orderItem of orderForm.get('orderItems').controls; let i=index" [formGroupName]="i">
                 <div class="form-group row mb-2">
                     <label class="col-md-2 col-form-label"
                             for="quantityId">Quantity</label>
