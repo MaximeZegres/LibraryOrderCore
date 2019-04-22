@@ -49,7 +49,12 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
-        // Get by id
+
+        /// <summary>
+        /// Get order by orderNumber
+        /// </summary>
+        /// <param name="orderNumber">A string reference to get the content of the specific order with that orderNumber</param>
+        /// <returns>An order with the CustomerInformation</returns>
         [HttpGet("{orderNumber}")]
         public async Task<ActionResult<OrderModel>> Get(string orderNumber)
         {
