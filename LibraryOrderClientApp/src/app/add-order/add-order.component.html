@@ -109,13 +109,24 @@
                    formControlName="quantity" />
           </div>
         </div>
-
-
-
-
         
       </div>
+          <form [formGroup]="book">
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                      for="bookId">Book's Title</label>
+                  <div class="col-md-8">
+                  <input class="form-control"
+                        id="bookId"
+                        type="email"
+                        placeholder="Book's Title"
+                        formControlName="title" />
+                </div>
+              </div>
+          </form>
+      <div>
     </div>
+  </div>
 
 
 
