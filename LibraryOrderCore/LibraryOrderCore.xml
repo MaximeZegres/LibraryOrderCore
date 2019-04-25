@@ -11,6 +11,13 @@
             <param name="includeItems">A boolean to include the orderItems to the json result.</param>
             <returns>An order with the CustomerInformation (and orderItems + books) if the includeItems is specified in the URL</returns>
         </member>
+        <member name="M:LibraryOrderCore.Controllers.OrdersController.Get(System.String)">
+            <summary>
+            Get order by orderNumber
+            </summary>
+            <param name="orderNumber">A string reference to get the content of the specific order with that orderNumber</param>
+            <returns>An order with the CustomerInformation</returns>
+        </member>
         <member name="P:LibraryOrderCore.Data.Entities.Book.BookId">
             <summary>
             Id of the Book
@@ -34,6 +41,86 @@
         <member name="P:LibraryOrderCore.Data.Entities.Book.ISBN">
             <summary>
             ISBN of the book
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Customer.CustomerId">
+            <summary>
+            Id of customer
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Customer.FirstName">
+            <summary>
+            FirstName of customer
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Customer.LastName">
+            <summary>
+            LastName of customer
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Customer.Email">
+            <summary>
+            Email of Customer
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Customer.PhoneNumber">
+            <summary>
+            PhoneNumber of customer
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Order.OrderId">
+            <summary>
+            Id of the order
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Order.OrderNumber">
+            <summary>
+            SKU/Reference of the order
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Order.OrderDate">
+            <summary>
+            Date of validation of the order
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Order.IsContacted">
+            <summary>
+            True/False field to confirm the contact of the customer by the organization
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Order.OrderItems">
+            <summary>
+            Collection of orderItems (books) ordered for the customer
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.Order.Customer">
+            <summary>
+            Reference of the customer who passed this order
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.OrderItem.OrderItemId">
+            <summary>
+            Id of the orderItem
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.OrderItem.Order">
+            <summary>
+            Reference to the Order the orderItems is linked to
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.OrderItem.Quantity">
+            <summary>
+            Quantity of orderItems ordered
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.OrderItem.Book">
+            <summary>
+            Reference to the specific item (book) ordered
+            </summary>
+        </member>
+        <member name="P:LibraryOrderCore.Data.Entities.OrderItem.IsOrdered">
+            <summary>
+            True/False value to confirm that the books was ordered internally in the organization
             </summary>
         </member>
     </members>
