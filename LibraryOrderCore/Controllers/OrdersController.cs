@@ -33,7 +33,8 @@ namespace LibraryOrderCore.Controllers
         /// <param name="includeItems">A boolean to include the orderItems to the json result.</param>
         /// <returns>An order with the CustomerInformation (and orderItems + books) if the includeItems is specified in the URL</returns>
 
-        // Get all orders
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         public async Task<ActionResult<OrderModel[]>> Get(bool includeItems = false)
         {
