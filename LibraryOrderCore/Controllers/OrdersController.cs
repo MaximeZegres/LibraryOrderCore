@@ -76,7 +76,11 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
-       // Post
+       /// <summary>
+       /// Post a complete new order containing the complete information about the order and customer without the orderItems information.
+       /// </summary>
+       /// <param name="model"></param>
+       /// <returns></returns>
        [HttpPost]
         public async Task<ActionResult<OrderModel>> Post(OrderModel model)
         {
@@ -112,7 +116,12 @@ namespace LibraryOrderCore.Controllers
             return BadRequest();
         }
 
-        // Put
+        /// <summary>
+        /// Modify the order following the specific orderNumber specified in the parameter.
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut("{orderNumber}")]
         public async Task<ActionResult<OrderModel>> Put(string orderNumber, OrderModel model)
         {
@@ -141,7 +150,11 @@ namespace LibraryOrderCore.Controllers
 
         }
 
-
+        /// <summary>
+        /// Delete the order following the specific orderNumber specified in the parameter.
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <returns></returns>
         [HttpDelete("{orderNumber}")]
         public async Task<IActionResult> Delete(string orderNumber)
         {
