@@ -27,7 +27,11 @@ namespace LibraryOrderCore.Controllers
             _linkGenerator = linkGenerator;
         }
 
-
+        /// <summary>
+        /// Retrieve the orderItems within a specific orderNumber
+        /// </summary>
+        /// <param name="orderNumber">orderNumber</param>
+        /// <returns>Return the quantity, the boolean parameter (is ordered/is not ordered) and the title, author, editor and isbn of the orderItems.</returns>
         [HttpGet]
         public async Task<ActionResult<OrderItem[]>> Get(string orderNumber)
         {
@@ -42,6 +46,13 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Retrieve a specific orderItem within the orderNumber specified in the parameter. If an order contains multiple books, it will retrieve only the one with specific Id in the parameters
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <param name="id"></param>
+        /// <returns>Return the quantity, the boolean parameter (is ordered/is not ordered) and the title, author, editor and isbn of a specific book</returns>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<OrderItem>> Get(string orderNumber, int id)
         {
@@ -56,6 +67,13 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Post a new orderItem specific to the orderNumber specified in the parameter
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<OrderItemModel>> Post(string orderNumber, OrderItemModel model)
         {
@@ -102,6 +120,13 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit the 
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPatch("{id:int}")]
         public async Task<ActionResult<OrderItemModel>> Patch(string orderNumber, int id, OrderItemModel model)
         {
@@ -130,7 +155,12 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Delete the orderItem selected via Id and contains in the order selected via orderNumber
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(string orderNumber, int id)
         {
