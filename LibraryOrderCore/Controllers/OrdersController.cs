@@ -33,7 +33,8 @@ namespace LibraryOrderCore.Controllers
         /// <param name="includeItems">A boolean to include the orderItems to the json result.</param>
         /// <returns>An order with the CustomerInformation (and orderItems + books) if the includeItems is specified in the URL</returns>
 
-        // Get all orders
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         public async Task<ActionResult<OrderModel[]>> Get(bool includeItems = false)
         {
@@ -55,6 +56,9 @@ namespace LibraryOrderCore.Controllers
         /// </summary>
         /// <param name="orderNumber">A string reference to get the content of the specific order with that orderNumber</param>
         /// <returns>An order with the CustomerInformation</returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{orderNumber}")]
         public async Task<ActionResult<OrderModel>> Get(string orderNumber)
         {
@@ -76,12 +80,15 @@ namespace LibraryOrderCore.Controllers
             }
         }
 
-       /// <summary>
-       /// Post a complete new order containing the complete information about the order and customer without the orderItems information.
-       /// </summary>
-       /// <param name="model"></param>
-       /// <returns></returns>
-       [HttpPost]
+        /// <summary>
+        /// Post a complete new order containing the complete information about the order and customer without the orderItems information.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost]
         public async Task<ActionResult<OrderModel>> Post(OrderModel model)
         {
             try
@@ -122,6 +129,10 @@ namespace LibraryOrderCore.Controllers
         /// <param name="orderNumber"></param>
         /// <param name="model"></param>
         /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut("{orderNumber}")]
         public async Task<ActionResult<OrderModel>> Put(string orderNumber, OrderModel model)
         {
@@ -155,6 +166,10 @@ namespace LibraryOrderCore.Controllers
         /// </summary>
         /// <param name="orderNumber"></param>
         /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{orderNumber}")]
         public async Task<IActionResult> Delete(string orderNumber)
         {
