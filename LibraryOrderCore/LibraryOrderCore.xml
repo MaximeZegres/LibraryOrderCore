@@ -4,6 +4,46 @@
         <name>LibraryOrderCore</name>
     </assembly>
     <members>
+        <member name="M:LibraryOrderCore.Controllers.OrderItemsController.Get(System.String)">
+            <summary>
+            Retrieve the orderItems within a specific orderNumber
+            </summary>
+            <param name="orderNumber">orderNumber</param>
+            <returns>Return the quantity, the boolean parameter (is ordered/is not ordered) and the title, author, editor and isbn of the orderItems.</returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrderItemsController.Get(System.String,System.Int32)">
+            <summary>
+            Retrieve a specific orderItem within the orderNumber specified in the parameter. If an order contains multiple books, it will retrieve only the one with specific Id in the parameters
+            </summary>
+            <param name="orderNumber"></param>
+            <param name="id"></param>
+            <returns>Return the quantity, the boolean parameter (is ordered/is not ordered) and the title, author, editor and isbn of a specific book</returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrderItemsController.Post(System.String,LibraryOrderCore.Models.OrderItemModel)">
+            <summary>
+            Post a new orderItem specific to the orderNumber specified in the parameter
+            </summary>
+            <param name="orderNumber"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrderItemsController.Patch(System.String,System.Int32,LibraryOrderCore.Models.OrderItemModel)">
+            <summary>
+            Edit the 
+            </summary>
+            <param name="orderNumber"></param>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrderItemsController.Delete(System.String,System.Int32)">
+            <summary>
+            Delete the orderItem selected via Id and contains in the order selected via orderNumber
+            </summary>
+            <param name="orderNumber"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:LibraryOrderCore.Controllers.OrdersController.Get(System.Boolean)">
             <summary>
             Get All Orders
@@ -17,6 +57,28 @@
             </summary>
             <param name="orderNumber">A string reference to get the content of the specific order with that orderNumber</param>
             <returns>An order with the CustomerInformation</returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrdersController.Post(LibraryOrderCore.Models.OrderModel)">
+            <summary>
+            Post a complete new order containing the complete information about the order and customer without the orderItems information.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrdersController.Put(System.String,LibraryOrderCore.Models.OrderModel)">
+            <summary>
+            Modify the order following the specific orderNumber specified in the parameter.
+            </summary>
+            <param name="orderNumber"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryOrderCore.Controllers.OrdersController.Delete(System.String)">
+            <summary>
+            Delete the order following the specific orderNumber specified in the parameter.
+            </summary>
+            <param name="orderNumber"></param>
+            <returns></returns>
         </member>
         <member name="P:LibraryOrderCore.Data.Entities.Book.BookId">
             <summary>
