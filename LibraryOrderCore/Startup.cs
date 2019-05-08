@@ -20,10 +20,14 @@ namespace LibraryOrderCore
 {
     public class Startup
     {
+        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public IConfiguration Configuration { get; }
 
@@ -53,6 +57,15 @@ namespace LibraryOrderCore
 
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -73,6 +86,8 @@ namespace LibraryOrderCore
                 setupAction.SwaggerEndpoint("/swagger/LibraryOrderCoreAPISpecification/swagger.json",
                     "LibraryOrderCoreAPI");
             });
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseMvc();
         }
