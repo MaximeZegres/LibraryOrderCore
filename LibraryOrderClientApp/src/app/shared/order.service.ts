@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class OrderService {
-  baseUrl = "http://localhost:59654/api/";
+  baseUrl = "https://libraryordercore20190507051056.azurewebsites.net/api/";
   baseOrdersUrl = this.baseUrl + 'orders?includeitems=true';
 
 
