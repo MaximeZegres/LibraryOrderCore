@@ -6,14 +6,14 @@
     "application" : "LibraryOrderCore",
     "environment" : "LibraryOrderCore-dev",
     "cname"       : "libraryordercore-dev",
-    "solution-stack" : "64bit Windows Server 2016 v2.0.2 running IIS 10.0",
+    "solution-stack" : "64bit Windows Server 2016 v2.0.3 running IIS 10.0",
     "environment-type" : "SingleInstance",
     "instance-profile" : "aws-elasticbeanstalk-ec2-role",
     "service-role"     : "aws-elasticbeanstalk-service-role",
     "health-check-url" : "/",
     "instance-type"    : "t2.micro",
-    "key-pair"         : "",
-    "iis-website"      : "",
-    "app-path"         : "/swagger/index.html",
+    "key-pair"         : "libraryordercore",
+    "iis-website"      : "Default Web Site",
+    "app-path"         : "/",
     "enable-xray"      : false
 }

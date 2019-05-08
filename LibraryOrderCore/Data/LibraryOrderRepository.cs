@@ -48,7 +48,7 @@ namespace LibraryOrderCore.Data
                                         
    
             // Order It
-            query = query.OrderByDescending(o => o.OrderId);
+            query = query.OrderBy(o => o.OrderId);
 
             return await query.ToArrayAsync();
 

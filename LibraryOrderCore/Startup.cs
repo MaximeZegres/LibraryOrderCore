@@ -64,6 +64,8 @@ namespace LibraryOrderCore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDeveloperExceptionPage();
+
             app.UseSwagger();
 
             app.UseSwaggerUI(setupAction =>

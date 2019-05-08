@@ -7,7 +7,7 @@
     <UserSecretsId>8aa7ca5d-cbab-4f7a-bb58-865d0007c25a</UserSecretsId>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>LibraryOrderCore.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>
