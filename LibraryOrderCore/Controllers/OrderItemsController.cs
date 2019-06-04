@@ -121,14 +121,14 @@ namespace LibraryOrderCore.Controllers
         }
 
         /// <summary>
-        /// Edit the 
+        /// Edit the orderItem within a specific orderNumber
         /// </summary>
         /// <param name="orderNumber"></param>
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPatch("{id:int}")]
-        public async Task<ActionResult<OrderItemModel>> Patch(string orderNumber, int id, OrderItemModel model)
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<OrderItemModel>> Put(string orderNumber, int id, OrderItemModel model)
         {
             try
             {
