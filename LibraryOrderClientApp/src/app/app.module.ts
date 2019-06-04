@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { OrderGridComponent } from './order-grid/order-grid.component';
-import { AddOrderComponent } from './add-order/add-order.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderGridItemComponent } from './order-grid/order-grid-item.component';
 import { OrderService } from './shared/order.service';
@@ -12,16 +10,24 @@ import { appRoutes } from './routes';
 import { NavBarComponent } from './nav/nav-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderEditComponent } from './order-edit/order-edit.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AddOrderCustomerComponent } from './add-order/add-order-customer.component';
+import { AddOrderItemsComponent } from './add-order/add-order-items.component';
+
+import {FormlyModule} from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { DatepickerTypeComponent } from './datepicker-type.component';
+import { MatDatepickerModule, MatInputModule, MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderGridComponent,
-    AddOrderComponent,
+    AddOrderCustomerComponent,
+    AddOrderItemsComponent,
     OrderGridItemComponent,
     OrderEditComponent,
-    NavBarComponent
+    NavBarComponent,
+    DatepickerTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +35,23 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    FormlyModule.forRoot({
+      types: [{
+        name: 'datepicker',
+        component: DatepickerTypeComponent,
+        wrappers: ['form-field'],
+        defaultOptions: {
+          defaultValue: new Date(),
+          templateOptions: {
+            datepickerOptions: {},
+          },
+        },
+      }]
+    }),
+    FormlyMaterialModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [OrderService],
   bootstrap: [AppComponent]

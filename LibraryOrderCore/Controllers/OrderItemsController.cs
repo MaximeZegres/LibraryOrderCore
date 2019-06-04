@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Routing;
 namespace LibraryOrderCore.Controllers
 {
     [ApiController]
-    [Route("api/orders/{orderNumber}/orderItems")]
+    [Route("api/Orders/{orderNumber}/orderItems")]
     public class OrderItemsController : ControllerBase
     {
         private readonly ILibraryOrderRepository _repository;
