@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { IOrder, IOrderItems, IBook } from '../shared/order.model';
 
 @Component({
   selector: 'add-order-customer',
   templateUrl: './add-order-customer.component.html',
   styleUrls: ['./add-order-customer.component.css']
 })
-export class AddOrderCustomerComponent {
-  form = new FormGroup({});
-  model = { 
+export class AddOrderCustomerComponent implements OnInit {
+  
+
+  orderForm: FormGroup;
+  order: IOrder = {
     orderNumber: '',
     orderDate: '',
     isContacted: false,
@@ -18,38 +21,64 @@ export class AddOrderCustomerComponent {
     customerEmail: '',
     customerPhoneNumber: ''
   };
-
-  fields: FormlyFieldConfig[] = [
-  {
-    key: 'orderNumber',
-    type: 'input',
-    templateOptions: {
-      label: 'Numéro de commande',
-      required: true,
-    }
-  },
-  {
-    key: 'orderDate',
-    type: 'datepicker',
-    templateOptions: {
-      required: true,
-      type: 'text',
-      label: 'Date de commande'
-    }
-  },
-  {
-    key: 'customerFirstName',
-    type: 'input',
-    templateOptions: {
-      label: 'Prénom',
-      required: true,
-    }
+  orderItems: IOrderItems = {
+    quantity: 0,
+    isOrdered: false
   }
-];
-
-  submit(model) {
-    console.log(model);
+  book: IBook = {
+    title: '',
+    author: '',
+    editor: '',
+    isbn: ''
   }
+
+  get orderBooks(): FormArray {
+    return <FormArray>this.orderForm.get('orderBooks');
+  }
+
+  
+  constructor(private router: Router, private formBuilder: FormBuilder) {   
+  }
+
+  ngOnInit() {
+    this.orderForm = this.formBuilder.group({
+      orderNumber: [this.order.customerFirstName, Validators.required],
+      orderDate: [this.order.orderDate, Validators.required],
+      customerFirstName: [this.order.customerFirstName, Validators.required],
+      customerLastName: [this.order.customerLastName, Validators.required],
+      customerEmail: [this.order.customerEmail, Validators.required],
+      customerPhoneNumber: [this.order.customerPhoneNumber, Validators.required],
+      orderBooks: this.formBuilder.array([ this.buildBooks() ])
+    });
+  }
+
+  addBook(): void {
+    this.orderBooks.push(this.buildBooks());
+  }
+  
+
+    saveOrder() {
+      console.log(this.orderForm);
+      console.log('Saved: ' + JSON.stringify(this.orderForm.value));
+
+  }
+
+  cancel() {
+    this.router.navigate(['/orders'])
+  }
+
+
+
+  buildBooks(): FormGroup {
+    return this.formBuilder.group({
+      title: '',
+      author: '',
+      editor: '',
+      isbn: '',
+      quantity: ''
+    });
+  }
+
 
 
 }

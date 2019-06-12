@@ -13,11 +13,6 @@ import { OrderEditComponent } from './order-edit/order-edit.component';
 import { AddOrderCustomerComponent } from './add-order/add-order-customer.component';
 import { AddOrderItemsComponent } from './add-order/add-order-items.component';
 
-import {FormlyModule} from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { DatepickerTypeComponent } from './datepicker-type.component';
-import { MatDatepickerModule, MatInputModule, MatNativeDateModule } from '@angular/material';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,32 +21,14 @@ import { MatDatepickerModule, MatInputModule, MatNativeDateModule } from '@angul
     AddOrderItemsComponent,
     OrderGridItemComponent,
     OrderEditComponent,
-    NavBarComponent,
-    DatepickerTypeComponent
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule,
-    FormlyModule.forRoot({
-      types: [{
-        name: 'datepicker',
-        component: DatepickerTypeComponent,
-        wrappers: ['form-field'],
-        defaultOptions: {
-          defaultValue: new Date(),
-          templateOptions: {
-            datepickerOptions: {},
-          },
-        },
-      }]
-    }),
-    FormlyMaterialModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    ReactiveFormsModule
   ],
   providers: [OrderService],
   bootstrap: [AppComponent]

@@ -1,4 +1,157 @@
-<form [formGroup]="form" (ngSubmit)="submit(model)">
-    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+<div class="card">
+    <div class="card-header">
+      Add Order
+    </div>
+  
+    <div class="card-body">
+      <form novalidate
+            (ngSubmit)="saveOrder()"
+            [formGroup]="orderForm">
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="firstNameId">First Name</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="firstNameId"
+                   type="text"
+                   placeholder="First Name (required)"
+                   formControlName="customerFirstName" />
+          </div>
+        </div>
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="lastNameId">Last Name</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="lastNameId"
+                   type="text"
+                   placeholder="Last Name (required)"
+                   formControlName="customerLastName" />
+          </div>
+        </div>
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="customerEmailId">Email</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="customerEmailId"
+                   type="text"
+                   placeholder="Email (required)"
+                   formControlName="customerEmail"
+                   [ngClass]="{'is-invalid': (orderForm.get('customerEmail').touched ||
+                                              orderForm.get('customerEmail').dirty) &&
+                                              !orderForm.get('customerEmail').valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="orderForm.get('customerEmail').errors?.required">
+                Please enter your email.
+              </span>
+            </span>
+          </div>
+        </div>
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="customerPhoneNumberId">Phone</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="customerPhoneNumberId"
+                   type="tel"
+                   placeholder="PhoneNumber"
+                   formControlName="customerPhoneNumber"
+                   [ngClass]="{'is-invalid': !orderForm.get('customerPhoneNumber').valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="orderForm.get('customerPhoneNumber').errors?.required">
+                Please enter your phone number.
+              </span>
+            </span>
+          </div>
+        </div>
+  
+        <hr>
+        <hr>
+        <hr>
+  
+  
+        <div>
+          <div formArrayName="orderBooks"
+               *ngFor="let orderBooks of orderBooks.controls; let i=index">
+            <div [formGroupName]="i">     
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       attr.for="{{'titleId' + i}}">Book's Title</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                         id="{{'titleId' + i}}"
+                         type="text"
+                         placeholder="Book's Title"
+                         formControlName="title">
+                </div>
+              </div>
+  
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="editorId">Editor</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                         id="editorId"
+                         type="text"
+                         placeholder="Editor"
+                         formControlName="editor">
+                </div>
+              </div>
+  
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="isbnId">ISBN</label>
+                <div class="col-md-3">
+                  <input class="form-control"
+                         id="isbnId"
+                         type="text"
+                         placeholder="ISBN"
+                         formControlName="isbn">
+                </div>
+              </div>
+  
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="quantityId">Quantity</label>
+                <div class="col-md-3">
+                  <input class="form-control"
+                         id="quantityId"
+                         type="text"
+                         placeholder="Quantity"
+                         formControlName="quantity">
+                </div>
+              </div>
+          </div>
+          </div>
+        </div>
+  
+  
+          <div class="form-group row mb-2">
+            <div class="col-md-4">
+              <button class="btn btn-outline-primary"
+                      type="button"
+                      [disabled]="!orderBooks.valid"
+                      (click)="addBook()">
+                Add Another Book
+              </button>
+            </div>
+          </div>
+  
+        <div class="form-group row mb-2">
+          <div class="offset-md-2 col-md-4">
+            <button class="btn btn-primary mr-3"
+                    type="submit"
+                    style="width:80px"
+                    [title]="orderForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
